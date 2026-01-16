@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "generated_at": "2026-01-16T09:57:54.617005",
+    "data_period": {
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "duration_days": 364
+    },
+    "total_records": 7300,
+    "states_covered": 20
+  },
+  "executive_summary": {
+    "total_enrolments": "95505991",
+    "avg_monthly_enrolments": 7958832.583333333,
+    "avg_growth_rate": "-0.0%",
+    "growth_trend": "negative",
+    "key_findings": [
+      "Large-scale enrolment operations detected"
+    ]
+  },
+  "trend_insights": [],
+  "anomaly_insights": [],
+  "risk_insights": [],
+  "cluster_insights": [],
+  "recommendations": [
+    {
+      "category": "Operations",
+      "action": "Performance Review",
+      "description": "Review operations in regions showing negative growth",
+      "priority": "MEDIUM",
+      "timeline": "1 month",
+      "responsible": "Operations Team"
+    },
+    {
+      "category": "Monitoring",
+      "action": "Regular Dashboard Review",
+      "description": "Review dashboard metrics weekly for early issue detection",
+      "priority": "LOW",
+      "timeline": "Weekly",
+      "responsible": "All Teams"
+    },
+    {
+      "category": "Improvement",
+      "action": "Model Retraining",
+      "description": "Retrain ML models quarterly with latest data",
+      "priority": "MEDIUM",
+      "timeline": "Quarterly",
+      "responsible": "Data Science Team"
+    }
+  ]
+}

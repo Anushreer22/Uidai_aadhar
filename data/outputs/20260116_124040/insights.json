@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "generated_at": "2026-01-16T12:40:40.094267",
+    "total_records": 2190,
+    "states_analyzed": 6,
+    "period": "2023-01-01 to 2023-12-31"
+  },
+  "summary": {
+    "total_enrolments": "15380558",
+    "total_anomalies": "8",
+    "anomaly_rate": "11.1%",
+    "top_risky_state": "Delhi",
+    "critical_states": 0
+  },
+  "recommendations": [
+    {
+      "action": "Investigate anomalies",
+      "description": "Review 8 detected anomalies",
+      "priority": "MEDIUM"
+    },
+    {
+      "action": "Address high-risk states",
+      "description": "Focus on states with critical risk levels",
+      "priority": "HIGH"
+    }
+  ]
+}

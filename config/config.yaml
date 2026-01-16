@@ -1,0 +1,56 @@
+project:
+  name: "Aadhaar Enrolment Analytics"
+  version: "1.0.0"
+  description: "Analysis of Aadhaar enrolment patterns and anomalies"
+
+data:
+  raw_path: "data/raw"
+  processed_path: "data/processed"
+  output_path: "data/outputs"
+  supported_formats: ["csv", "xlsx", "json"]
+  
+  column_mappings:
+    date: ["date", "Date", "timestamp", "enrolment_date"]
+    state: ["state", "State", "STATE_NAME", "state_name"]
+    district: ["district", "District", "DISTRICT_NAME"]
+    pincode: ["pincode", "PIN", "postal_code"]
+    enrolment_count: ["enrolment_count", "enrolments", "total_enrolments"]
+    update_count: ["update_count", "updates", "total_updates"]
+
+ml:
+  anomaly_detection:
+    model: "isolation_forest"
+    contamination: 0.1
+    random_state: 42
+    n_estimators: 100
+    
+  clustering:
+    model: "kmeans"
+    n_clusters: 5
+    max_iter: 300
+    
+  risk_scoring:
+    weights:
+      volume: 0.2
+      frequency: 0.3
+      severity: 0.3
+      volatility: 0.2
+
+dashboard:
+  title: "Aadhaar Enrolment Analytics Dashboard"
+  theme: "light"
+  port: 8501
+  debug: true
+  
+  colors:
+    primary: "#138808"  # India Green
+    secondary: "#FF9933" # India Saffron
+    accent: "#000080"    # India Navy Blue
+    warning: "#DC3545"
+    success: "#28A745"
+    info: "#17A2B8"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/pipeline.log"
