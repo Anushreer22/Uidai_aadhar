@@ -1,0 +1,19 @@
+# ===== DATA FILES =====
+data/raw/
+data/processed/
+data/outputs/
+app/data/
+
+# ===== LOGS =====
+logs/
+*.log
+
+# ===== PYTHON CACHE =====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ===== IDE FILES =====
+.vscode/
+.idea/
