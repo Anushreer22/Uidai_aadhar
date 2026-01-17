@@ -423,7 +423,7 @@ class AadhaarDashboard:
                     self.load_data()
                     st.rerun()
             
-            # Export button - FIXED: removed use_container_width
+            # Export button - FIXED: use_container_width is OK for buttons
             if st.session_state.data is not None:
                 csv = st.session_state.data.to_csv(index=False)
                 st.download_button(
@@ -562,47 +562,6 @@ class AadhaarDashboard:
                         icon="⚠️"
                     ), unsafe_allow_html=True)
                 
-                # Data profiling
-                st.markdown("### 🔍 **Data Profiling**")
-                
-                profile_tab1, profile_tab2 = st.tabs(["📋 Column Details", "🎯 Insights"])
-                
-                with profile_tab1:
-                    for col in df.columns[:5]:  # Show first 5 columns
-                        with st.expander(f"**{col}** ({df[col].dtype})", icon="📌"):
-                            col1, col2 = st.columns(2)
-                            with col1:
-                                st.metric("Unique", df[col].nunique())
-                                st.metric("Missing", df[col].isna().sum())
-                            with col2:
-                                if pd.api.types.is_numeric_dtype(df[col]):
-                                    st.metric("Mean", f"{df[col].mean():.2f}")
-                                    st.metric("Std Dev", f"{df[col].std():.2f}")
-                
-                with profile_tab2:
-                    # Generate insights
-                    insights = []
-                    
-                    # Check for missing values
-                    missing_pct = (df.isna().sum().sum() / (len(df) * len(df.columns))) * 100
-                    if missing_pct > 10:
-                        insights.append(("warning", "⚠️ High Missing Values", 
-                                       f"{missing_pct:.1f}% of data is missing"))
-                    
-                    # Check for duplicates
-                    duplicates = df.duplicated().sum()
-                    if duplicates > 0:
-                        insights.append(("info", "🔍 Duplicates Found", 
-                                       f"{duplicates:,} duplicate rows"))
-                    
-                    # Display insights
-                    if insights:
-                        for icon, title, desc in insights:
-                            if "warning" in icon:
-                                st.warning(f"{icon} **{title}**\n\n{desc}")
-                            else:
-                                st.info(f"{icon} **{title}**\n\n{desc}")
-                    
             except Exception as e:
                 st.error(f"❌ Error loading file: {str(e)}")
         else:
@@ -732,7 +691,7 @@ class AadhaarDashboard:
                 font=dict(color='#333')
             )
             # FIXED: replaced use_container_width with width parameter
-            st.plotly_chart(fig, use_container_width=False, width='stretch')
+            st.plotly_chart(fig, width='stretch')
         
         with col2:
             # Success rate gauge
@@ -765,7 +724,7 @@ class AadhaarDashboard:
                 paper_bgcolor='rgba(255,255,255,0)'
             )
             # FIXED: replaced use_container_width with width parameter
-            st.plotly_chart(fig, use_container_width=False, width='stretch')
+            st.plotly_chart(fig, width='stretch')
         
         # State performance
         st.markdown("### 🏆 **Top Performing States**")
@@ -782,7 +741,7 @@ class AadhaarDashboard:
                         color_continuous_scale='Viridis')
             fig.update_layout(yaxis={'categoryorder': 'total ascending'})
             # FIXED: replaced use_container_width with width parameter
-            st.plotly_chart(fig, use_container_width=False, width='stretch')
+            st.plotly_chart(fig, width='stretch')
         
         with col4:
             state_success = df.groupby('state')['success_rate'].mean().reset_index()
@@ -794,7 +753,7 @@ class AadhaarDashboard:
                         color_continuous_scale='Blues')
             fig.update_layout(yaxis={'categoryorder': 'total ascending'})
             # FIXED: replaced use_container_width with width parameter
-            st.plotly_chart(fig, use_container_width=False, width='stretch')
+            st.plotly_chart(fig, width='stretch')
     
     def show_geographic_view(self, df):
         """Show geographic visualization"""
@@ -842,7 +801,7 @@ class AadhaarDashboard:
         )
         
         # FIXED: replaced use_container_width with width parameter
-        st.plotly_chart(fig, use_container_width=False, width='stretch')
+        st.plotly_chart(fig, width='stretch')
     
     def show_enhanced_anomalies(self, df):
         """Show enhanced anomaly analysis"""
@@ -920,7 +879,7 @@ class AadhaarDashboard:
                 showlegend=True
             )
             # FIXED: replaced use_container_width with width parameter
-            st.plotly_chart(fig, use_container_width=False, width='stretch')
+            st.plotly_chart(fig, width='stretch')
         
         with col2:
             # Risk breakdown
