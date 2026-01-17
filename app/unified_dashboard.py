@@ -349,7 +349,7 @@ class AadhaarDashboard:
             with col1:
                 standard_selected = st.button(
                     "📊 Standard",
-                    use_container_width=True,
+                    width="stretch",
                     type="primary" if st.session_state.mode == "standard" else "secondary",
                     help="Pre-loaded analytics dashboard"
                 )
@@ -404,7 +404,7 @@ class AadhaarDashboard:
             
             with action_col1:
                 refresh_btn = st.button("🔄 Refresh", 
-                                       use_container_width=True,
+                                       width="stretch",
                                        type="primary",
                                        help="Reload sample data")
                 if refresh_btn:
@@ -415,7 +415,7 @@ class AadhaarDashboard:
             
             with action_col2:
                 sample_btn = st.button("📊 Sample", 
-                                      use_container_width=True,
+                                      width="stretch",
                                       type="secondary",
                                       help="Load sample data")
                 if sample_btn:
@@ -431,7 +431,7 @@ class AadhaarDashboard:
                     data=csv,
                     file_name="aadhaar_analytics.csv",
                     mime="text/csv",
-                    use_container_width=True,
+                    width="stretch",
                     type="primary",
                     help="Download current data as CSV"
                 )
@@ -525,7 +525,7 @@ class AadhaarDashboard:
                 
                 # Data preview in glass card
                 with st.expander("📋 **Data Preview**", expanded=True):
-                    st.dataframe(df.head(10), use_container_width=True, height=300)
+                    st.dataframe(df.head(10), use_container_width=True)
                 
                 # Statistics in columns
                 st.markdown("### 📈 **Quick Statistics**")
@@ -881,9 +881,10 @@ class AadhaarDashboard:
             display_df = display_df.sort_values('enrolments', ascending=False)
             
             st.dataframe(
-                display_df.style.background_gradient(subset=['enrolments'], cmap='Oranges'),
-                use_container_width=True,
+                display_df,
+                width="stretch",
                 height=300
+
             )
         else:
             st.markdown("""
