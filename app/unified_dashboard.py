@@ -349,7 +349,7 @@ class AadhaarDashboard:
             with col1:
                 standard_selected = st.button(
                     "📊 Standard",
-                    width="stretch",
+                    use_container_width=True,
                     type="primary" if st.session_state.mode == "standard" else "secondary",
                     help="Pre-loaded analytics dashboard"
                 )
@@ -404,7 +404,7 @@ class AadhaarDashboard:
             
             with action_col1:
                 refresh_btn = st.button("🔄 Refresh", 
-                                       width="stretch",
+                                       use_container_width=True,
                                        type="primary",
                                        help="Reload sample data")
                 if refresh_btn:
@@ -415,7 +415,7 @@ class AadhaarDashboard:
             
             with action_col2:
                 sample_btn = st.button("📊 Sample", 
-                                      width="stretch",
+                                      use_container_width=True,
                                       type="secondary",
                                       help="Load sample data")
                 if sample_btn:
@@ -423,7 +423,7 @@ class AadhaarDashboard:
                     self.load_data()
                     st.rerun()
             
-            # Export button
+            # Export button - FIXED: removed use_container_width
             if st.session_state.data is not None:
                 csv = st.session_state.data.to_csv(index=False)
                 st.download_button(
@@ -431,7 +431,7 @@ class AadhaarDashboard:
                     data=csv,
                     file_name="aadhaar_analytics.csv",
                     mime="text/csv",
-                    width="stretch",
+                    use_container_width=True,
                     type="primary",
                     help="Download current data as CSV"
                 )
@@ -523,9 +523,9 @@ class AadhaarDashboard:
                 📊 **Columns:** {len(df.columns)}
                 """)
                 
-                # Data preview in glass card
+                # Data preview in glass card - FIXED: replaced use_container_width
                 with st.expander("📋 **Data Preview**", expanded=True):
-                    st.dataframe(df.head(10), use_container_width=True)
+                    st.dataframe(df.head(10), width='stretch', height=300)
                 
                 # Statistics in columns
                 st.markdown("### 📈 **Quick Statistics**")
@@ -731,7 +731,8 @@ class AadhaarDashboard:
                 hovermode='x unified',
                 font=dict(color='#333')
             )
-            st.plotly_chart(fig, use_container_width=True)
+            # FIXED: replaced use_container_width with width parameter
+            st.plotly_chart(fig, use_container_width=False, width='stretch')
         
         with col2:
             # Success rate gauge
@@ -763,7 +764,8 @@ class AadhaarDashboard:
                 font=dict(color='#333'),
                 paper_bgcolor='rgba(255,255,255,0)'
             )
-            st.plotly_chart(fig, use_container_width=True)
+            # FIXED: replaced use_container_width with width parameter
+            st.plotly_chart(fig, use_container_width=False, width='stretch')
         
         # State performance
         st.markdown("### 🏆 **Top Performing States**")
@@ -779,7 +781,8 @@ class AadhaarDashboard:
                         color='enrolments',
                         color_continuous_scale='Viridis')
             fig.update_layout(yaxis={'categoryorder': 'total ascending'})
-            st.plotly_chart(fig, use_container_width=True)
+            # FIXED: replaced use_container_width with width parameter
+            st.plotly_chart(fig, use_container_width=False, width='stretch')
         
         with col4:
             state_success = df.groupby('state')['success_rate'].mean().reset_index()
@@ -790,7 +793,8 @@ class AadhaarDashboard:
                         color='success_rate',
                         color_continuous_scale='Blues')
             fig.update_layout(yaxis={'categoryorder': 'total ascending'})
-            st.plotly_chart(fig, use_container_width=True)
+            # FIXED: replaced use_container_width with width parameter
+            st.plotly_chart(fig, use_container_width=False, width='stretch')
     
     def show_geographic_view(self, df):
         """Show geographic visualization"""
@@ -837,7 +841,8 @@ class AadhaarDashboard:
             showcoastlines=True
         )
         
-        st.plotly_chart(fig, use_container_width=True)
+        # FIXED: replaced use_container_width with width parameter
+        st.plotly_chart(fig, use_container_width=False, width='stretch')
     
     def show_enhanced_anomalies(self, df):
         """Show enhanced anomaly analysis"""
@@ -880,11 +885,11 @@ class AadhaarDashboard:
             display_df['success_rate'] = display_df['success_rate'].apply(lambda x: f"{x*100:.1f}%")
             display_df = display_df.sort_values('enrolments', ascending=False)
             
+            # FIXED: replaced use_container_width with width parameter
             st.dataframe(
-                display_df,
-                width="stretch",
+                display_df.style.background_gradient(subset=['enrolments'], cmap='Oranges'),
+                width='stretch',
                 height=300
-
             )
         else:
             st.markdown("""
@@ -914,7 +919,8 @@ class AadhaarDashboard:
                 font=dict(color='#333', size=12),
                 showlegend=True
             )
-            st.plotly_chart(fig, use_container_width=True)
+            # FIXED: replaced use_container_width with width parameter
+            st.plotly_chart(fig, use_container_width=False, width='stretch')
         
         with col2:
             # Risk breakdown
